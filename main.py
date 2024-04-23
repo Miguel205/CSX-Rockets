@@ -1,6 +1,5 @@
 import numpy as np
 
-
 def psi_2_V(psi):
     V=.188*psi+8.72     #slope of exel graph
     return V
