@@ -1,5 +1,0 @@
-def main():
-    psi=input("psi\n")
-    angle=input("launch angle\n")
-if __name__ == "__main__":
-        main()
