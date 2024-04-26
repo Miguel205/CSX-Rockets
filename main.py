@@ -40,7 +40,7 @@ def range(time, horizontal):
     return range
 
 
-def coordinates(vertical, horizontal, time, timestep=0.05):
+def coordinates(vertical, horizontal, time, timestep=0.1):
     # x-coordinate - horizontal
     t = 0
     xs = []
@@ -63,7 +63,7 @@ def coordinates(vertical, horizontal, time, timestep=0.05):
         ax.set_ylim(0, 120)
 
 
-    ani = animation.FuncAnimation(fig, animate, frames=len(xs) - 1, interval=40, repeat=False)
+    ani = animation.FuncAnimation(fig, animate, frames=len(xs) - 1, interval=30, repeat=False)
     plt.show()
 
 if __name__ == "__main__":
