@@ -55,21 +55,40 @@ def coordinates(vertical, horizontal, time, timestep=0.1):
         ax.set_xlim(0, 120)             #limits
         ax.set_ylim(0, 120)
 
-
-
-
     ani = animation.FuncAnimation(fig, animate, frames=len(xs) - 1, interval=30, repeat=False)
     plt.show()
-def main():
-    psi = int(input("psi\n"))
-    angle = int(input("launch angle\n"))
-    tan_V = psi_2_V(psi)
-    horizontal, vertical = trig(angle, tan_V)
-    t = time(vertical)
-    r = calculate_range(t, horizontal)
 
-    print("launch velocity", f"{tan_V}ft/s", "time", f"{t}sec", " range", f"{r}Yards","(",r/1.09361,"meters",")")
-    coordinates(vertical, horizontal, t)
+def fieldGoal(range, vel):
+    'Part 2: Calculates necessary angle and PSI given launch velocity and range to score over a field goal'
+    
+    psi = (vel-8.72)/0.188 # converts given velocity to psi using excel equation
+    d = .8 # desired clearing height above field goal
+    h = 0 + d # max projectile height in meters
+    r = range/1.09361 # convert yards to meters
+    angle = (math.atan(math.sqrt((h*9.8*2)/vel))) # calculate angle
+    a = angle*(180/math.pi) # convert from radians to degrees
+
+    return psi, a
+
+def main():
+    mode = input("Normal launch or field goal? N/F\n")
+    if mode == "N":
+        psi = int(input("psi\n"))
+        angle = int(input("launch angle\n"))
+        tan_V = psi_2_V(psi)
+        horizontal, vertical = trig(angle, tan_V)
+        t = time(vertical)
+        r = calculate_range(t, horizontal)
+
+        print("launch velocity", f"{tan_V}ft/s", "time", f"{t}sec", " range", f"{r} Yards","(",r/1.09361,"meters",")")
+        coordinates(vertical, horizontal, t)
+    elif mode == "F":
+        range = int(input("range\n"))
+        vel = int(input("Velocity\n"))
+        psi = fieldGoal(range, vel)[0]
+        angle = fieldGoal(range, vel)[1]
+
+        print(f"Angle: {angle}, PSI: {psi}")
 
 if __name__ == "__main__":
     main()
